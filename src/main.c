@@ -20,6 +20,8 @@ App app;
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
     memset(&app, 0, sizeof(App));
     InitSDL();
 

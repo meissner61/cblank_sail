@@ -21,7 +21,7 @@ void Blit(SDL_Texture* texture, int x, int y);
 App app;
 Entity player;
 
-SDL_Texture* tex; //= LoadTexture("arena_input.png");
+//SDL_Texture* tex; //= LoadTexture("arena_input.png");
 
 int main(int argc, char* argv[])
 {
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
     InitSDL();
 
-    tex = LoadTexture("../data/wallpaper.jpg");
+    player.texture = LoadTexture("../data/player.png");
 
     player.x = 100;
     player.y = 100;
@@ -48,6 +48,8 @@ int main(int argc, char* argv[])
         PrepareScene();
 
         DoInput();
+
+        Blit(player.texture, player.x, player.y);
 
         PresentScene();
 
@@ -66,7 +68,7 @@ void PrepareScene(void)
 void PresentScene(void)
 {
 
-    SDL_RenderCopy(app.renderer, tex, NULL, NULL);
+    //SDL_RenderCopy(app.renderer, player.texture, NULL, NULL);
 
     SDL_RenderPresent(app.renderer);
 }

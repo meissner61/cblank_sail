@@ -44,8 +44,11 @@ SDL_Texture* LoadTexture(char *filename)
         return NULL;
     }
 
+    //allows PNG transparency
+    SDL_SetTextureBlendMode(texture,SDL_BLENDMODE_BLEND);
 
+    //delete the stbi image data 
+    stbi_image_free(imageData);
 
-    //texture =
     return texture;
 }

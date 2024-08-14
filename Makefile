@@ -31,7 +31,7 @@ $(debug_executable): $(src_files)
 	$(CC) $(CFLAGS) $(src_files) $(LDFLAGS) -o $(debug_executable)
 
 run: $(TARGET)
-	./$(TARGET)
+	cd $(output_dir) && ./$(notdir $(TARGET))
 
 clean:
 	rm -rf $(output_dir)

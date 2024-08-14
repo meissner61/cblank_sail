@@ -16,6 +16,8 @@
 
 extern App app;
 
+//App app; //why does this work without the extern keyword?
+
 SDL_Texture* LoadTexture(char *filename)
 {
     SDL_Texture *texture = NULL;

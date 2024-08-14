@@ -22,8 +22,8 @@ void Blit(SDL_Texture* texture, int x, int y);
 
 App app;
 Entity player;
+Entity bullet;
 
-//SDL_Texture* tex; //= LoadTexture("arena_input.png");
 
 int main(int argc, char* argv[])
 {
@@ -31,14 +31,17 @@ int main(int argc, char* argv[])
     (void)argv;
     memset(&app, 0, sizeof(App));
     memset(&player, 0, sizeof(Entity));
-
-
-    
-    
+    memset(&bullet, 0, sizeof(Entity));
 
     InitSDL();
 
     player.texture = LoadTexture("../data/player.png");
+
+
+    SDL_Rect rect = {100,100,100,100};
+    // bullet.shape = {100,100,100,100}; //cannot use initializer list like this in C...
+    //bullet.shape{bullet.x, bullet.y, 20,2};
+    bullet.shape = (SDL_Rect){bullet.x,bullet.y,16,3};
 
     player.x = 100;
     player.y = 100;
@@ -71,7 +74,28 @@ int main(int argc, char* argv[])
             player.x += 4;
         }
 
+        if(app.fire && bullet.health == 0)
+        {
+            bullet.shape.x = player.x;
+            bullet.shape.y = player.y;
+            bullet.dx = 16;
+            bullet.dy = 0;
+            bullet.health = 1;
+        }
+
+        bullet.shape.x += bullet.dx;
+        bullet.shape.y += bullet.dy;
+
+        if(bullet.shape.x > SCREEN_WIDTH)
+        {
+            bullet.health = 0;
+        }
+
         Blit(player.texture, player.x, player.y);
+
+        SDL_SetRenderDrawColor(app.renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(app.renderer, &bullet.shape);
+
 
         PresentScene();
 
@@ -107,12 +131,12 @@ void DoInput(void)
             }
             case SDL_KEYDOWN:
             {
-                DoKeyDown(&event);
+                DoKeyDown(&event.key);
                 break;
             }
             case SDL_KEYUP:
             {
-                DoKeyUp(&event);
+                DoKeyUp(&event.key);
                 break;
             }
 
@@ -142,6 +166,10 @@ void DoKeyDown(SDL_KeyboardEvent *l_event)
         {
             app.left = 1;
         }
+        if(l_event->keysym.scancode == SDL_SCANCODE_SPACE)
+        {
+            app.fire = 1;
+        }
     }
 }
 
@@ -164,6 +192,10 @@ void DoKeyUp(SDL_KeyboardEvent *l_event)
         if(l_event->keysym.scancode == SDL_SCANCODE_A)
         {
             app.left = 0;
+        }
+        if(l_event->keysym.scancode == SDL_SCANCODE_SPACE)
+        {
+            app.fire = 0;
         }
     }
 }

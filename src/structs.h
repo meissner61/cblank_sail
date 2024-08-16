@@ -1,24 +1,47 @@
 
+#include "defs.h"
+
 #include "SDL.h"
+
+typedef struct Entity Entity;
+
+typedef struct
+{
+    void (*logic)(void);
+    void (*draw)(void);
+} Delegate;
 
 typedef struct
 {
     SDL_Renderer *renderer;
     SDL_Window *window;
-    int up;
-    int down;
-    int left;
-    int right;
-    int fire;
+    Delegate delegate;
+    int keyboard[MAX_KEYBOARD_KEYS];
+    // int up;
+    // int down;
+    // int left;
+    // int right;
+    // int fire;
 } App;
 
-typedef struct
+struct Entity 
 {
     int x;
     int y;
+    int width;
+    int height;
     int dx;
     int dy;
     int health;
+    int reload;
     SDL_Rect shape;
     SDL_Texture* texture;
-} Entity;
+    Entity *next;
+};
+
+
+typedef struct
+{
+    Entity fighterHead, *fighterTail;
+    Entity bulletHead, *bulletTail;
+} Stage;

@@ -2,7 +2,7 @@
 #include "ctype.h"
 #include "defs.h"
 #include "math.h"
-#include "SDL.h"
+
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
@@ -53,4 +53,19 @@ SDL_Texture* LoadTexture(char *filename)
     stbi_image_free(imageData);
 
     return texture;
+}
+
+
+void Blit(SDL_Texture *texture, int x, int y)
+{
+    SDL_Rect dest;
+
+    dest.x = x;
+    dest.y = y;
+
+    SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
+
+    SDL_RenderCopy(app.renderer, texture, NULL, &dest);
+
+
 }

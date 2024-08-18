@@ -57,3 +57,7 @@ Makefile2
 
 #imgui
 imgui.ini
+
+
+#logging
+scripts/app_log.txt

@@ -17,11 +17,7 @@ typedef struct
     SDL_Window *window;
     Delegate delegate;
     int keyboard[MAX_KEYBOARD_KEYS];
-    // int up;
-    // int down;
-    // int left;
-    // int right;
-    // int fire;
+
 } App;
 
 struct Entity 

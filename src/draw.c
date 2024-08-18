@@ -16,7 +16,7 @@
 
 extern App app;
 
-//App app; //why does this work without the extern keyword?
+//App app; //why does this work without the extern keyword? - it does not on linux
 
 SDL_Texture* LoadTexture(char *filename)
 {

@@ -3,6 +3,9 @@
 #include "draw.h"
 #include "structs.h"
 
+//for memset
+#include <string.h>
+
 
 
 extern App app;

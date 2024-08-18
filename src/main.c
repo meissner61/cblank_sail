@@ -135,7 +135,7 @@ void DoKeyUp(SDL_KeyboardEvent *l_event)
     }
 }
 
-void logAppStateToFile(const App* app)
+void logAppStateToFile(const App* l_app)
 {
     // Open the file for writing
     //a for append mode, means that it will not over write what is in there 
@@ -148,18 +148,18 @@ void logAppStateToFile(const App* app)
 
     // Write the output to the file instead of the console
     fprintf(file, "app state logging:\n");
-    fprintf(file, "App:\napp.renderer: %p\n", (void*)app->renderer);
-    fprintf(file, "app.window: %p\n", (void*)app->window);
-    fprintf(file, "app.delegate.draw: %p\n", (void*)app->delegate.draw);
-    fprintf(file, "app.delegate.logic: %p\n", (void*)app->delegate.logic);
+    fprintf(file, "App:\napp.renderer: %p\n", (void*)l_app->renderer);
+    fprintf(file, "app.window: %p\n", (void*)l_app->window);
+    fprintf(file, "app.delegate.draw: %p\n", (void*)l_app->delegate.draw);
+    fprintf(file, "app.delegate.logic: %p\n", (void*)l_app->delegate.logic);
 
     fprintf(file, "Keyboard array contents:\n");
     for (int i = 0; i < MAX_KEYBOARD_KEYS; i++)
     {
-        if (app->keyboard[i] > 0)
+        if (l_app->keyboard[i] > 0)
         {
             // Print the index and the value at that index
-            fprintf(file, "Key[%d] = %d\n", i, app->keyboard[i]);
+            fprintf(file, "Key[%d] = %d\n", i, l_app->keyboard[i]);
         }
         else
         {
